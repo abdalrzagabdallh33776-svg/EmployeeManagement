@@ -1,0 +1,2 @@
+@model EmployeeManagement.Models.Employee
+@{ ViewData["Title"] = "حذف موظف"; }<h2>حذف موظف</h2><div class="alert alert-warning">هل تريد حذف <b>@Model.FullName</b>؟</div><form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" /><button class="btn btn-danger">حذف</button> <a asp-action="Index" class="btn btn-secondary">إلغاء</a></form>
