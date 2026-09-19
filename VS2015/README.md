@@ -1,12 +1,9 @@
-# نسخة Visual Studio 2015
+# النسخة المتقدمة
 
-هذه نسخة ASP.NET MVC 5 على .NET Framework 4.6.1، وليست ASP.NET Core.
+الصلاحيات:
+- مدير: admin / admin123 — إدارة الموظفين والأقسام والمستخدمين.
+- موظف: employee / employee123 — عرض الموظفين فقط.
 
-## التشغيل
-1. ثبّت Visual Studio 2015 مع workload **Web Developer Tools** و.NET Framework 4.6.1 Developer Pack.
-2. افتح `EmployeeManagementVS2015.sln`.
-3. من NuGet نفّذ Restore Packages، أو ابْنِ المشروع ليتم تنزيل الحزم.
-4. شغّل بـ IIS Express.
+افتح `EmployeeManagementVS2015.sln` في Visual Studio 2015، ثم Restore NuGet Packages وشغّل IIS Express.
 
-الاتصال الافتراضي هو LocalDB: `(LocalDB)\\MSSQLLocalDB`.
-ينشئ Entity Framework الجداول عند أول تشغيل. إذا لم يوجد LocalDB، عدّل `VS2015/Web.config`.
+تنبيه أمني: كلمات المرور مخزنة نصياً للتجربة التعليمية فقط. في الإنتاج يجب استخدام hashing وASP.NET Identity.

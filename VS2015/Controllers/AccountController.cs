@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -21,25 +23,22 @@ namespace EmployeeManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+
+            var user = db.Users.FirstOrDefault(x => x.UserName == model.UserName && x.Password == model.Password && x.IsActive);
+            if (user == null)
             {
+                ModelState.AddModelError("", "اسم المستخدم أو كلمة المرور ��ير صحيحة.");
                 return View(model);
             }
 
-            var user = db.Users.FirstOrDefault(x => x.UserName == model.UserName && x.Password == model.Password);
-            if (user != null)
-            {
-                FormsAuthentication.SetAuthCookie(user.UserName, model.RememberMe);
-                if (Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
+            var ticket = new FormsAuthenticationTicket(1, user.UserName, DateTime.Now,
+                model.RememberMe, user.Role, FormsAuthentication.FormsCookiePath);
+            Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName,
+                FormsAuthentication.Encrypt(ticket)));
 
-                return RedirectToAction("Index", "Home");
-            }
-
-            ModelState.AddModelError("", "اسم المستخدم أو كلمة المرور غير صحيحة.");
-            return View(model);
+            if (Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]
@@ -52,16 +51,8 @@ namespace EmployeeManagement.Controllers
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "اسم المستخدم")]
-        public string UserName { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "كلمة المرور")]
-        public string Password { get; set; }
-
-        [Display(Name = "تذكرني")]
+        [Required] public string UserName { get; set; }
+        [Required, DataType(DataType.Password)] public string Password { get; set; }
         public bool RememberMe { get; set; }
     }
 }

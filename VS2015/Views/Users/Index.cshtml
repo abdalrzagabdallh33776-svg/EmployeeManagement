@@ -1,0 +1,5 @@
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; ViewBag.Title = "إدارة المستخدمين"; }
+@model IEnumerable<EmployeeManagement.Models.User>
+<h2>إدارة المستخدمين</h2><p><a class="btn btn-primary" href="~/Users/Create">إضافة مستخدم</a></p>
+<table class="table table-bordered"><tr><th>اسم المستخدم</th><th>الاسم</th><th>الصلاحية</th><th>الحالة</th><th>إجراء</th></tr>
+@foreach (var u in Model) { <tr><td>@u.UserName</td><td>@u.FullName</td><td>@u.Role</td><td>@(u.IsActive ? "فعال" : "موقوف")</td><td>@if (u.UserName != User.Identity.Name) { using (Html.BeginForm("Toggle", "Users", new { id = u.Id }, FormMethod.Post, null)) { @Html.AntiForgeryToken()<button class="btn btn-sm btn-warning">تغيير الحالة</button> } }</td></tr> }</table>
