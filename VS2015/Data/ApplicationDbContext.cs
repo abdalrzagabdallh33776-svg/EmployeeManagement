@@ -1,0 +1,3 @@
+using System.Data.Entity;
+using EmployeeManagement.Models;
+namespace EmployeeManagement.Data { public class ApplicationDbContext : DbContext { public ApplicationDbContext() : base("DefaultConnection") { } public DbSet<Employee> Employees { get; set; } public DbSet<Department> Departments { get; set; } protected override void OnModelCreating(DbModelBuilder b) { b.Entity<Employee>().Property(x => x.Salary).HasPrecision(18, 2); b.Entity<Employee>().HasRequired(x => x.Department).WithMany(x => x.Employees).HasForeignKey(x => x.DepartmentId).WillCascadeOnDelete(false); } } }

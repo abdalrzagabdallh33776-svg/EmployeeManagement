@@ -1,0 +1,3 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+namespace EmployeeManagement.Models { public class Employee { public int Id { get; set; } [Required, StringLength(150)] public string FullName { get; set; } [Required, EmailAddress] public string Email { get; set; } public string Phone { get; set; } [Required] public string Position { get; set; } public decimal Salary { get; set; } [DataType(DataType.Date)] public DateTime HireDate { get; set; } [Required] public string Status { get; set; } public int DepartmentId { get; set; } public virtual Department Department { get; set; } } }

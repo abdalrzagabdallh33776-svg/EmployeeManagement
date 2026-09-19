@@ -1,0 +1,2 @@
+@model EmployeeManagement.Models.Department
+@{ Layout="~/Views/Shared/_Layout.cshtml"; ViewBag.Title="قسم"; }<h2>بيانات القسم</h2>@using(Html.BeginForm()){ @Html.AntiForgeryToken() @Html.HiddenFor(x=>x.Id)<div class="form-group">@Html.LabelFor(x=>x.Name) @Html.TextBoxFor(x=>x.Name,new{@class="form-control"})</div><div class="form-group">@Html.LabelFor(x=>x.Description) @Html.TextAreaFor(x=>x.Description,new{@class="form-control"})</div><button class="btn btn-success">حفظ</button>}
