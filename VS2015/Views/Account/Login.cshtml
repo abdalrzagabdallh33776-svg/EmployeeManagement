@@ -1,0 +1,25 @@
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; ViewBag.Title = "تسجيل الدخول"; }
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h2>تسجيل الدخول</h2>
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("UserName", "اسم المستخدم")
+                @Html.TextBox("UserName", null, new { @class = "form-control", placeholder = "admin" })
+            </div>
+            <div class="form-group">
+                @Html.Label("Password", "كلمة المرور")
+                @Html.Password("Password", null, new { @class = "form-control", placeholder = "admin123" })
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBox("RememberMe") تم تذكيري
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+        }
+    </div>
+</div>

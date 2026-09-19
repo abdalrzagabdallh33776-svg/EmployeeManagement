@@ -1,2 +1,13 @@
 using System.Web.Mvc;
-namespace EmployeeManagement.Controllers { public class HomeController : Controller { public ActionResult Index() { return View(); } } }
+
+namespace EmployeeManagement.Controllers
+{
+    public class HomeController : Controller
+    {
+        [AllowAnonymous]
+        public ActionResult Index()
+        {
+            return View();
+        }
+    }
+}
